@@ -1,16 +1,25 @@
+/** *
+ * AUTHORS: <Noam Vanunu>
+ * 
+ * Date: 08/03/2022
+ */
 #include "mat.hpp"
-#define flip(a,b,c) a == b ? c : b
+#define flip(a,b,c) (a) == (b) ? (c) : (b)
 
 string ariel::mat(int w, int h, char c1, char c2){
 
     char currChar = c1; // the pattern we weave this round
-    if(w % 2 == 0 || h % 2 == 0 ||  w < 0  || h < 0)
+    if(w % 2 == 0 || h % 2 == 0 ||  w < 0  || h < 0){
         throw ariel::badInput();
+    }
 
     char rug[h][w + 1];
     
     // we will weave the rug layer by layer, starting from the out layer
-    int lcol = 0, urow = 0, rcol = w -1, lrow = h - 1; // edges of the current layers
+    int lcol = 0;
+    int urow = 0;
+    int rcol = w -1;
+    int lrow = h - 1; // edges of the current layers
 
     while(lcol <= rcol && urow <= lrow){
 
@@ -34,8 +43,9 @@ string ariel::mat(int w, int h, char c1, char c2){
         currChar = flip(currChar,c1,c2);
     }
     // add new lines to get a rectangle shape string
-    for(int i = 0 ;  i <  h;i++)
+    for(int i = 0 ;  i <  h;i++){
         rug[i][w] = '\n';
+        }
 
     return string(&rug[0][0], &rug[h-1][w] +1);
 }
